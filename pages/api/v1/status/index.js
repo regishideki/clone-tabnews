@@ -1,12 +1,17 @@
 import database from "infra/database.js";
 
 const getStatus = async (req, res) => {
-  const result = await database.query("select 1 + 1 as sum;");
+  const versionResult = await database.query("show server_version;");
+  const versionValue = versionResult.rows[0].server_version;
   const updatedAt = new Date().toISOString();
 
   res.status(200).json({
-    rows: result.rows,
-    updated_at: updatedAt
+    updated_at: updatedAt,
+    dependencies: {
+      database: {
+        version: versionValue
+      }
+    },
   });
 }
 
