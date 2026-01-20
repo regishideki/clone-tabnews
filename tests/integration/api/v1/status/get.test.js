@@ -1,10 +1,12 @@
 test("GET /api/v1/status returns 200 and status message", async () => {
   const response = await fetch("http://localhost:3030/api/v1/status");
-  const data = await response.json();
+  const responseBody = await response.json();
 
   expect(response.status).toBe(200);
-  expect(data).toEqual({
-    response: "OK. Não tem nada de errado aqui.",
-    rows: [ { sum: 2 } ]
-  });
+  // expect(data).toEqual({
+  //   response: "OK. Não tem nada de errado aqui.",
+  //   rows: [ { sum: 2 } ]
+  // });
+  const parsedUpdatedAt = new Date(responseBody.updated_at);
+  expect(responseBody.updated_at).toBe(parsedUpdatedAt.toISOString());
 });
