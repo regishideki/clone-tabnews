@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev -p 3030",
+    "dev": "npm run services:up && next dev -p 3030",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "services:up": "docker compose -f infra/compose.yml up -d",
+    "services:stop": "docker compose -f infra/compose.yml stop",
+    "services:down": "docker compose -f infra/compose.yml down"
   },
   "author": "",
   "license": "ISC",
