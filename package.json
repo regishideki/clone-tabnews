@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run services:up && next dev -p 3030",
+    "dev:recreate": "npm run services:down:volumes && npm run services:up:recreate && next dev -p 3030",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "services:up": "docker compose -f infra/compose.yml up -d",
+    "services:up:recreate": "docker compose -f infra/compose.yml up -d --force-recreate",
     "services:stop": "docker compose -f infra/compose.yml stop",
-    "services:down": "docker compose -f infra/compose.yml down"
+    "services:down": "docker compose -f infra/compose.yml down",
+    "services:down:volumes": "docker compose -f infra/compose.yml down -v"
   },
   "author": "",
   "license": "ISC",
