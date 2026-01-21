@@ -5,5 +5,9 @@ test("GET /api/v1/status returns 200 and status message", async () => {
   expect(response.status).toBe(200);
   const parsedUpdatedAt = new Date(responseBody.updated_at);
   expect(responseBody.updated_at).toBe(parsedUpdatedAt.toISOString());
-  expect(responseBody.dependencies.database.version).toBe("16.0")
+  const dependencies = responseBody.dependencies;
+  const database = dependencies.database;
+  expect(database.version).toBe("16.0")
+  expect(database.max_connections).toBe(100);
+  expect(database.opened_connections).toBe(1);
 });
