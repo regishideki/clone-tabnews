@@ -10,8 +10,8 @@ const getStatus = async (req, res) => {
   const databaseMaxConnectionsValue = databaseMaxConnectionsResult.rows[0].max_connections;
 
   const databaseOpenedConnectionsResult = await database.query({
-    text: "select count(*)::int from pg_stat_activity where datname = $1 and state = $2;",
-    values: [process.env.POSTGRES_DB, "active"]
+    text: "select count(*)::int from pg_stat_activity where datname = $1;",
+    values: [process.env.POSTGRES_DB]
   });
   const databaseOpenedConnectionsValue = databaseOpenedConnectionsResult.rows[0].count;
 
