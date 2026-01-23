@@ -14,12 +14,16 @@
     "services:up:recreate": "docker compose -f infra/compose.yml up -d --force-recreate",
     "services:stop": "docker compose -f infra/compose.yml stop",
     "services:down": "docker compose -f infra/compose.yml down",
-    "services:down:volumes": "docker compose -f infra/compose.yml down -v"
+    "services:down:volumes": "docker compose -f infra/compose.yml down -v",
+    "migration:create": "node-pg-migrate -m infra/migrations create",
+    "migration:up": "node-pg-migrate -m infra/migrations --envPath .env.development up"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.4",
     "next": "^13.1.6",
+    "node-pg-migrate": "^6.2.2",
     "pg": "^8.11.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
