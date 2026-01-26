@@ -6,9 +6,9 @@ const query = async (queryObject) => {
     port: process.env.POSTGRES_PORT,
     user: process.env.POSTGRES_USER,
     database: process.env.POSTGRES_DB,
-    password: process.env.POSTGRES_PASSWORD
-  }
-  console.log("Connection config:", connectionConfig)
+    password: process.env.POSTGRES_PASSWORD,
+    ssl: getSslValues(),
+  };
 
   const client = new Client(connectionConfig);
 
@@ -23,8 +23,18 @@ const query = async (queryObject) => {
   } finally {
     await client.end();
   }
-}
+};
+
+const getSslValues = () => {
+  if (process.env.POSTGRES_CA) {
+    return {
+      ca: process.env.POSTGRES_CA,
+    }
+  }
+
+  return process.env.NODE_ENV === "production"
+};
 
 export default {
   query
-}
+};
