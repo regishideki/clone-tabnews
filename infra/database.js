@@ -1,6 +1,21 @@
 import { Client } from 'pg';
 
 const query = async (queryObject) => {
+  let client;
+
+  try {
+    client = await getNewClient();
+    const result = await client.query(queryObject);
+    return result;
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  } finally {
+    await client.end();
+  }
+};
+
+const getNewClient = async () => {
   const connectionConfig = {
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
@@ -11,18 +26,9 @@ const query = async (queryObject) => {
   };
 
   const client = new Client(connectionConfig);
+  await client.connect();
 
-  try {
-    await client.connect();
-
-    const result = await client.query(queryObject);
-    return result;
-  } catch (error) {
-    console.error("Database query error:", error);
-    throw error;
-  } finally {
-    await client.end();
-  }
+  return client;
 };
 
 const getSslValues = () => {
@@ -36,5 +42,6 @@ const getSslValues = () => {
 };
 
 export default {
-  query
+  query,
+  getNewClient,
 };
