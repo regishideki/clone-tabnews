@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run services:up && next dev -p 3030",
+    "dev": "npm run services:up && npm run migration:up && next dev -p 3030",
     "dev:recreate": "npm run services:down:volumes && npm run services:up:recreate && next dev -p 3030",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
@@ -22,6 +22,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.4",
+    "dotenv-expand": "^11.0.6",
     "next": "^13.1.6",
     "node-pg-migrate": "^6.2.2",
     "pg": "^8.11.3",
