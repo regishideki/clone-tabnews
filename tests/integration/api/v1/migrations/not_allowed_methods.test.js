@@ -1,6 +1,11 @@
 import { cleanDatabase } from "tests/utils.js";
+import orchestrator from "tests/orchestrator.js";
 
-beforeAll(cleanDatabase);
+beforeAll(async () => {
+  await cleanDatabase();
+  await orchestrator.waitAllServices();
+});
+
 
 ["DELETE", "HEAD", "PUT", "PATCH", "OPTIONS", "TRACE"].forEach((method) => {
   test(`${method} /api/v1/migrations returns error and does not leak db connection`, async () => {
