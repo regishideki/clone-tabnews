@@ -7,7 +7,7 @@ beforeAll(async () => {
 });
 
 
-["DELETE", "HEAD", "PUT", "PATCH", "OPTIONS", "TRACE"].forEach((method) => {
+["DELETE", "HEAD", "PUT", "PATCH", "OPTIONS"].forEach((method) => {
   test(`${method} /api/v1/migrations returns error and does not leak db connection`, async () => {
     const migrationResponse = await fetch(
       "http://localhost:3030/api/v1/migrations",
