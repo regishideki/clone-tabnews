@@ -11,7 +11,9 @@ const query = async (queryObject) => {
     console.error("Database query error:", error);
     throw error;
   } finally {
-    await client.end();
+    if (client) {
+      await client.end();
+    }
   }
 };
 
