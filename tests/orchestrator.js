@@ -1,24 +1,22 @@
 const retry = require('async-retry');
 
-const waitAllServices = async () => {
-  const waitWebServer = async () => {
-    const fetchStatusPage = async () => {
-      const response = await fetch("http://localhost:3030/api/v1/status");
+async function waitAllServices() {
+  await waitForWebServer();
 
-      if (!response.ok) {
-        throw new Error(
-          `Web server not ready, status code: ${response.status}`,
-        );
-      }
-    };
-
-    await retry(fetchStatusPage, {
-      retries: 100,
+  async function waitForWebServer() {
+    return retry(fetchStatusPage, {
+      retries: 200,
       maxTimeout: 1000,
     });
-  }
 
-  await waitWebServer();
+    async function fetchStatusPage() {
+      const response = await fetch("http://localhost:3030/api/v1/status");
+
+      if (response.status !== 200) {
+        throw Error();
+      }
+    }
+  }
 }
 
 export default {
