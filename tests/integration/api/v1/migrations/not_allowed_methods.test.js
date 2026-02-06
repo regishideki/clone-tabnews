@@ -6,7 +6,6 @@ beforeAll(async () => {
   await orchestrator.waitAllServices();
 });
 
-
 ["DELETE", "HEAD", "PUT", "PATCH", "OPTIONS"].forEach((method) => {
   test(`${method} /api/v1/migrations returns error and does not leak db connection`, async () => {
     const migrationResponse = await fetch(

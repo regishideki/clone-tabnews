@@ -46,6 +46,6 @@ const migrations = async (request, response) => {
   } finally {
     dbClient.end();
   }
-}
+};
 
 export default migrations;
