@@ -1,4 +1,4 @@
-import { Client } from 'pg';
+import { Client } from "pg";
 
 const query = async (queryObject) => {
   let client;
@@ -37,10 +37,10 @@ const getSslValues = () => {
   if (process.env.POSTGRES_CA) {
     return {
       ca: process.env.POSTGRES_CA,
-    }
+    };
   }
 
-  return process.env.NODE_ENV === "production"
+  return process.env.NODE_ENV === "production";
 };
 
 export default {

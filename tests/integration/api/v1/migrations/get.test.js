@@ -6,7 +6,6 @@ beforeAll(async () => {
   await orchestrator.waitAllServices();
 });
 
-
 test("GET /api/v1/migrations returns 200 and status message", async () => {
   const response = await fetch("http://localhost:3030/api/v1/migrations");
   const responseBody = await response.json();
