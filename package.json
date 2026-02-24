@@ -7,6 +7,7 @@
     "dev": "npm run services:up && npm run services:wait:database && npm run migrations:up && next dev -p 3030",
     "dev:recreate": "npm run services:down:volumes && npm run services:up:recreate && next dev -p 3030",
     "test": "npm run services:up && npm run services:wait:database && concurrently --names next,jest --hide next --kill-others --success command-jest 'next dev -p 3030' 'jest --runInBand'",
+    "posttest": "npm run services:stop",
     "test:watch": "jest --watchAll --runInBand",
     "services:up": "docker compose -f infra/compose.yml up -d",
     "services:up:recreate": "docker compose -f infra/compose.yml up -d --force-recreate",
