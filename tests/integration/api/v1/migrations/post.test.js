@@ -1,27 +1,45 @@
-import { cleanDatabase } from "tests/utils.js";
 import orchestrator from "tests/orchestrator.js";
 
 beforeAll(async () => {
-  await cleanDatabase();
+  await orchestrator.cleanDatabase();
   await orchestrator.waitAllServices();
 });
 
-test("POST /api/v1/migrations returns 200 and status message", async () => {
-  const response1 = await fetch("http://localhost:3030/api/v1/migrations", {
-    method: "POST",
+describe("POST to /api/v1/migrations", () => {
+  describe("when requesting by an anonymous user", () => {
+    describe("when there are migrations to be executed", () => {
+      it("returns success and executes the migrations", async () => {
+        const response = await fetch(
+          "http://localhost:3030/api/v1/migrations",
+          {
+            method: "POST",
+          },
+        );
+        const responseBody = await response.json();
+
+        expect(response.status).toBe(201);
+        expect(Array.isArray(responseBody)).toBe(true);
+        expect(responseBody.length).toBeGreaterThan(0);
+      });
+    });
+
+    describe("when there are no migrations to be executed", () => {
+      it("returns success and runs no migrations", async () => {
+        await fetch("http://localhost:3030/api/v1/migrations", {
+          method: "POST",
+        });
+        const response = await fetch(
+          "http://localhost:3030/api/v1/migrations",
+          {
+            method: "POST",
+          },
+        );
+        const responseBody = await response.json();
+
+        expect(response.status).toBe(200);
+        expect(Array.isArray(responseBody)).toBe(true);
+        expect(responseBody.length).toBe(0);
+      });
+    });
   });
-  const response1Body = await response1.json();
-
-  expect(response1.status).toBe(201);
-  expect(Array.isArray(response1Body)).toBe(true);
-  expect(response1Body.length).toBeGreaterThan(0);
-
-  const response2 = await fetch("http://localhost:3030/api/v1/migrations", {
-    method: "POST",
-  });
-  const response2Body = await response2.json();
-
-  expect(response2.status).toBe(200);
-  expect(Array.isArray(response2Body)).toBe(true);
-  expect(response2Body.length).toBe(0);
 });
