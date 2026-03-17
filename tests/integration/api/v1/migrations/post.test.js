@@ -10,7 +10,7 @@ describe("POST to /api/v1/migrations", () => {
     describe("when there are migrations to be executed", () => {
       it("returns success and executes the migrations", async () => {
         const response = await fetch(
-          "http://localhost:3030/api/v1/migrations",
+          `${orchestrator.webServerUrl}/api/v1/migrations`,
           {
             method: "POST",
           },
@@ -25,11 +25,11 @@ describe("POST to /api/v1/migrations", () => {
 
     describe("when there are no migrations to be executed", () => {
       it("returns success and runs no migrations", async () => {
-        await fetch("http://localhost:3030/api/v1/migrations", {
+        await fetch(`${orchestrator.webServerUrl}/api/v1/migrations`, {
           method: "POST",
         });
         const response = await fetch(
-          "http://localhost:3030/api/v1/migrations",
+          `${orchestrator.webServerUrl}/api/v1/migrations`,
           {
             method: "POST",
           },

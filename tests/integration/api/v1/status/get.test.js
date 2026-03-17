@@ -8,7 +8,9 @@ beforeAll(async () => {
 describe("GET to /api/v1/status", () => {
   describe("when requesting by an anonymous user", () => {
     it("returns success and status message", async () => {
-      const response = await fetch("http://localhost:3030/api/v1/status");
+      const response = await fetch(
+        `${orchestrator.webServerUrl}/api/v1/status`,
+      );
       const responseBody = await response.json();
 
       expect(response.status).toBe(200);
