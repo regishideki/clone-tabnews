@@ -4,7 +4,10 @@
       "Bash(claude:*)",
       "Bash(npm update:*)",
       "Bash(npm view:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(pkill:*)",
+      "Bash(lsof:*)"
     ]
   }
 }

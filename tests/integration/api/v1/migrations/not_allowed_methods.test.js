@@ -10,7 +10,7 @@ beforeAll(async () => {
     describe("when requesting by an anonymous user", () => {
       it("returns error and does not leak db connection", async () => {
         const migrationResponse = await fetch(
-          "http://localhost:3030/api/v1/migrations",
+          `${orchestrator.webServerUrl}/api/v1/migrations`,
           {
             method,
           },
@@ -19,7 +19,7 @@ beforeAll(async () => {
         expect(migrationResponse.status).toBe(405);
 
         const statusResponse = await fetch(
-          "http://localhost:3030/api/v1/status",
+          `${orchestrator.webServerUrl}/api/v1/status`,
         );
 
         const statusResponseBody = await statusResponse.json();
