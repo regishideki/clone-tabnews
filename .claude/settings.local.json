@@ -7,7 +7,10 @@
       "Bash(npm install:*)",
       "Bash(npm run:*)",
       "Bash(pkill:*)",
-      "Bash(lsof:*)"
+      "Bash(lsof:*)",
+      "Bash(npm test:*)",
+      "Bash(curl:*)",
+      "Bash(cat:*)"
     ]
   }
 }
